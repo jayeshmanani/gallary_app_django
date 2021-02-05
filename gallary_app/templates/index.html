@@ -1,0 +1,36 @@
+<h4><a href="/">Add Image/Home</a></h4>
+
+<h4><a href="/add_category">Add Category</a></h4>
+
+<h4><a href="/view_image">View Image</a></h4>
+
+
+{% if add_image %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+
+{% endif %}
+
+{% if not add_image %}
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+    {{ c_form.as_p }}
+<button type="submit">Add</button>
+</form>
+
+{% endif %}
+{% if img_objects %}
+<h3>Succesfully uploaded : {{img_objects.title}}</h3>
+<img src="{{ img_objects.image.url}}" alt="connect" style="max-height:300px">
+{% endif %} 
+
+<script>
+    var zero_user = {{ zero_user | safe }};
+    console.log(zero_user)
+    if (zero_user == 0) {
+        alert('There is no image, Please upload one!');
+    };
+</script>

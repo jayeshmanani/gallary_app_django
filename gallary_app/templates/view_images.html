@@ -1,0 +1,39 @@
+<h4><a href="/">Home</a></h4>
+
+<h4><a href="/add_category">Add Category</a></h4>
+
+<h4><a href="/view_image">View Image</a></h4>
+
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <select name= category_code>
+        {% for cat in cat_obj%}
+
+            <option value= "{{cat.category_id}}" SELECTED>{{cat.category}}</option>"
+        
+        {% endfor %}
+    </select>
+    <button type="submit">Filter</button>
+</form>
+<h4><a href="/view_image">Clear Filter</a></h4>
+
+
+
+{% if img_objects %}
+
+<h3>Image Gallary</h3>
+    {% for img_obj in img_objects %}    
+        <p>{{img_obj.title}}</p>
+        <img src="/media/{{ img_obj.image}}" alt="connect" style="max-height:300px">
+    {% endfor %}
+
+{% endif %} 
+
+<script>
+    var zero_user = {{ zero_user | safe }};
+    console.log(zero_user)
+    if (zero_user == 0) {
+        alert('There is no image, Please upload one from home page!');
+    };
+</script>
